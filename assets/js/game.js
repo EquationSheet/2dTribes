@@ -38,13 +38,14 @@ function draw(data){
             graphics.bullet(cur_bullet.x-me.x,cur_bullet.y-me.y);
         }
     }
+	graphics.background(me);
     //Draw ground
     graphics.rect(0,-me.y-canvas.height/2,canvas.width,canvas.height,'white','grey')
     //HUD
     graphics.string(-15,-canvas.height/2+45,'white','Health:')
-    graphics.rect(0,-canvas.height/2+30,200*player.health/maxhealth,10,'white','red')
+    graphics.rect(0,-canvas.height/2+30,200*me.health/maxhealth,10,'white','red')
     graphics.string(canvas.width/4+-15,-canvas.height/2+45,'white','Fuel:')
-    graphics.rect(canvas.width/4,-canvas.height/2+30,200*player.jetpackfuel/maxJetFuel,10,'white','blue')
+    graphics.rect(canvas.width/4,-canvas.height/2+30,200*me.jetpackfuel/maxJetFuel,10,'white','blue')
     graphics.string(-canvas.width/4+-15,-canvas.height/2+45,'white','Stamina:')
     graphics.rect(-canvas.width/4,-canvas.height/2+30,200,10,'white','green')
 }
@@ -100,6 +101,23 @@ function Graphics(ctx,cvs){
         var color = 'rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+1.0+')';
         this.circle(x,y,0,BULLET_RADIUS,color,color);
     }
+
+	this.background1=[];
+	this.background2=[];
+	this.backgroundcolor = 'white';
+	for (var i = 0; i < starcount; i++) {
+	    this.background1.push([Math.round(Math.random()*GAMEHEIGHT*scalingfactor)-GAMEHEIGHT*scalingfactor/2, Math.round(Math.random()*GAMEWIDTH*scalingfactor)-GAMEWIDTH*scalingfactor/2]);
+		this.background2.push([Math.round(Math.random()*GAMEHEIGHT*scalingfactor)-GAMEHEIGHT*scalingfactor/2, Math.round(Math.random()*GAMEWIDTH*scalingfactor)-GAMEWIDTH*scalingfactor/2]);
+	}
+
+	this.background=function(me){
+		for (var i = 0; i < starcount; i++) {
+	        this.circle(this.background1[i][0]-me.x/3,this.background1[i][1]-me.y/3,0,BULLET_RADIUS-1,this.backgroundcolor,this.backgroundcolor);
+
+			this.circle(this.background2[i][0]-me.x/6,this.background2[i][1]-me.y/6,0,BULLET_RADIUS-1,this.backgroundcolor,this.backgroundcolor);
+			console.log('yay');
+		}
+	}
 }
 
 /*
