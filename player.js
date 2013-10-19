@@ -2,6 +2,7 @@ var constants=require('./constants.js').constants;
 var Bullet=require('./bullet.js').Bullet;
 exports.Player=function(identifier,socket,name){
     //Administrvia
+    this.cooldown = 0;
     this.identifier = identifier;
     this.socket=socket;
     this.command={

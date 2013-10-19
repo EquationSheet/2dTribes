@@ -7,7 +7,9 @@ exports.Game=function(players){
         for (sessionKey in this.players){
             player = this.players[sessionKey];
             command = player.command;
-
+            if(player.cooldown > 0){
+                player.cooldown--;
+            }
             //Reinit all accelerations
             player.ax=0;
             player.ay=0;
@@ -23,7 +25,10 @@ exports.Game=function(players){
                 player.ax+=constants.player_acceleration;
             }
             if (command.mouse.click) {
-                player.spawnBullet(command.mouse.x,command.mouse.y,player.x,player.y,player.vx,player.vy);
+                if(player.cooldown == 0){
+                    player.spawnBullet(command.mouse.x,command.mouse.y,player.x,player.y,player.vx,player.vy);
+                    player.cooldown = constants.bul_cooldown;
+                }
             }
             if (player.y-constants.player_height/2<=constants.ground_height){
                 //Hit the ground
