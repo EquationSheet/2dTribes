@@ -31,6 +31,11 @@ function draw(data){
             graphics.rect(player.x-me.x,player.y-me.y,player_width,player_height,'red','black')
             graphics.string(player.x-me.x-(player.name.length/2)*5,player.y-me.y+11,'white',player.name)
         }
+        console.log(player.bulletList);
+        for(var j = 0; j < player.bulletList.length; j++){
+            var cur_bullet = player.bulletList[j];
+            graphics.bullet(cur_bullet.x,cur_bullet.y);
+        }
     }
     //Draw ground
     graphics.rect(0,-me.y-canvas.height/2,canvas.width,canvas.height,'white','grey')
@@ -83,6 +88,10 @@ function Graphics(ctx,cvs){
 		this.ctx.strokeStyle=lineColor;
 		this.ctx.strokeText(s,this.cvs.width/2+x,this.cvs.height/2-y);
 	}
+    this.bullet=function(x,y){
+        var color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+','+255.0+')';
+        this.circle(x,y,0,BULLET_RADIUS,color,color);
+    }
 }
 
 /*

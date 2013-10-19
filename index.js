@@ -49,7 +49,6 @@ async.series([
                 playerList=[];
                 for (sessionKey in players){
                     playerList.push(players[sessionKey].digest());
-                }
                     player = players[sessionKey];
                     player.socket.emit('heartbeat',{
                     you:players[sessionKey].digest(),

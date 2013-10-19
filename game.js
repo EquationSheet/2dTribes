@@ -1,3 +1,4 @@
+var constants = require('./constants').constants;
 exports.Game=function(players){
     this.players=players;
     this.step=function(){
@@ -78,10 +79,18 @@ exports.Game=function(players){
         }
         for (sessionKey in this.players){
             update(this.players[sessionKey]);
+            for( bullet in this.players[sessionKey].bulletList ){
+                update_bullet(this.players[sessionKey].bulletList[bullet]);
+            }
         }
     }
 }
 
+
+function update_bullet(obj){
+    obj.x += obj.vx;
+    obj.y += obj.vy;
+}
 function update(obj){
     obj.vx+=obj.ax;
     obj.vy+=obj.ay;
