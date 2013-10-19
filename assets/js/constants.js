@@ -4,3 +4,4 @@ var player_height=16;
 var player_width=6;
 var maxhealth=1000;
 var maxJetFuel=4000;
+var bul_cooldown=10;

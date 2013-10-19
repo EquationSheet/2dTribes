@@ -105,6 +105,7 @@ exports.Game=function(players){
                                 player2.y=100;
                                 player2.health=1000;
                                 player2.jetpackfuel=4000;
+                                player1.score+=1;
                             }
                     }
                 }

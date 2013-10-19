@@ -42,11 +42,23 @@ function draw(data){
     graphics.rect(0,-me.y-canvas.height/2,canvas.width,canvas.height,'white','grey')
     //HUD
     graphics.string(-15,-canvas.height/2+45,'white','Health:')
-    graphics.rect(0,-canvas.height/2+30,200*player.health/maxhealth,10,'white','red')
+    graphics.rect(0,-canvas.height/2+30,200*me.health/maxhealth,10,'white','red')
     graphics.string(canvas.width/4+-15,-canvas.height/2+45,'white','Fuel:')
-    graphics.rect(canvas.width/4,-canvas.height/2+30,200*player.jetpackfuel/maxJetFuel,10,'white','blue')
+    graphics.rect(canvas.width/4,-canvas.height/2+30,200*me.jetpackfuel/maxJetFuel,10,'white','blue')
     graphics.string(-canvas.width/4+-15,-canvas.height/2+45,'white','Stamina:')
-    graphics.rect(-canvas.width/4,-canvas.height/2+30,200,10,'white','green')
+    graphics.rect(-canvas.width/4,-canvas.height/2+30,200*(bul_cooldown-me.cooldown)/bul_cooldown,10,'white','green')
+    graphics.string(-canvas.width/2+10,canvas.height/2-10,'white',"Score: " + me.score);
+    //Compute and draw leaderboard
+    scoreList=[];
+    for (i in playerList){
+        scoreList.push([playerList[i].score,playerList[i].name]);
+    }
+    scoreList=scoreList.sort().slice(scoreList.length-10,scoreList.length).reverse();
+    graphics.string(canvas.width/2-100,canvas.height/2-11,'white',"Leaderboard:");
+    for (i in scoreList){
+        var curr=scoreList[i];
+        graphics.string(canvas.width/2-100,canvas.height/2-22-1.5*(i+1),'white',curr[1]+"  :  "+curr[0]);
+    }
 }
 
 function Graphics(ctx,cvs){
