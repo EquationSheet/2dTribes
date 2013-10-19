@@ -49,19 +49,27 @@ exports.Game=function(players){
         for (sessionKey1 in this.players){
             player1 = this.players[sessionKey1];
             for (sessionKey2 in this.players){
+                if (player1.identifier == this.players[sessionKey2].identifier) {
+                    continue;
+                }
                 player2 = this.players[sessionKey2];
-                if (player1.identifier != player2.identifier){
-                    if (detectCollision1d(player1.x,player1.vx,constants.player_width,player2.x,player2.vx,constants.player_width) && detectCollision1d(player1.y,player1.vy,constants.player_height,player2.y,player2.vy,constants.player_height)){
-                        //There is a collision. Find out if it is lateral or vertical.
-                        if (Math.abs(player1.y-player2.y)>=constants.player_height){
-                            var temp=player1.vy;
-                            player1.vy=player2.vy;
-                            player2.vy=temp;
-                        }else{
-                            var temp=player1.vx;
-                            player1.vx=player2.vx;
-                            player2.vx=temp;
-                        }
+
+                //console.log("Player 1 vx:"+player1.vx);
+                //console.log("Player 2 vx:"+player2.vx);
+                //console.log("Player 1 vy:"+player1.vy);
+               // //console.log("Player 2 vy:"+player2.vy);
+
+                if (detectCollision1d(player1.x,player1.vx,constants.player_width,player2.x,player2.vx,constants.player_width) && detectCollision1d(player1.y,player1.vy,constants.player_height,player2.y,player2.vy,constants.player_height)){
+                    //There is a collision. Find out if it is lateral or vertical.
+                    //console.log('I detected a collision');
+                    if (Math.abs(player1.y-player2.y)>=constants.player_height){
+                        var temp=player1.vy;
+                        player1.vy=player2.vy;
+                        player2.vy=temp;
+                    }else{
+                        var temp=player1.vx;
+                        player1.vx=player2.vx;
+                        player2.vx=temp;
                     }
                 }
             }
@@ -80,14 +88,11 @@ function update(obj){
     //Pointless comment
 }
 function detectCollision1d(a,va,wa,b,vb,wb){
-    if (a+wa/2<b-wb/2 && a+wa/2+va>b-wb/2+vb){
-        console.log("t");
-        return true;
+    if (a <= b && a+wa/2+va >= b-wb/2+vb ) {
+        return true
     }
-    if (b+wb/2<a-wa/2 && b+wb/2+vb>a-wa/2+va){
-        console.log("t");
-        return true;
+    else if (b <= a && b+wa/2+vb >= a-wa/2+va) {
+        return true
     }
-    console.log("f");
     return false
 }
