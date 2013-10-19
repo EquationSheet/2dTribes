@@ -32,6 +32,7 @@ async.series([
                     socket.emit('sessionKey',{sessionKey:key});
                 });
                 socket.on('logout',function(data){
+                    console.log("logout recieved")
                     if (data.sessionKey!=undefined){
                         delete(players[data.sessionKey]);
                     }
@@ -43,12 +44,14 @@ async.series([
         },
         function startHeartbeat(next){
             setInterval(function(){
-                for (sessionKey in players){
-                    console.log(players[sessionKey].name+" "+players[sessionKey].identifier+" "+": ("+players[sessionKey].x+","+players[sessionKey].y+")")
-                }
+                //for (sessionKey in players){
+                    //console.log(players[sessionKey].name+" "+players[sessionKey].identifier+" "+": ("+players[sessionKey].x+","+players[sessionKey].y+")")
+                //}
                 playerList=[];
                 for (sessionKey in players){
                     playerList.push(players[sessionKey].digest());
+                }
+                for (sessionKey in players){
                     player = players[sessionKey];
                     player.socket.emit('heartbeat',{
                     you:players[sessionKey].digest(),

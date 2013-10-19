@@ -26,12 +26,13 @@ function draw(data){
         player=playerList[i];
         if (player.identifier == me.identifier){
             graphics.rect(0,0,player_width,player_height,'white','black')
-            graphics.string(player.x-me.x-(player.name.length/2)*5,player.y-me.y+11,'white',player.name)
         }else{
             graphics.rect(player.x-me.x,player.y-me.y,player_width,player_height,'red','black')
-            graphics.string(player.x-me.x-(player.name.length/2)*5,player.y-me.y+11,'white',player.name)
         }
-        console.log(player.bulletList);
+        //Name
+        graphics.string(player.x-me.x-(player.name.length/2)*5,player.y-me.y+22,'white',player.name)
+        graphics.rect(player.x-me.x,player.y-me.y+15,20*player.health/maxhealth,3,'green','green')
+        //Health bar
         for(var j = 0; j < player.bulletList.length; j++){
             var cur_bullet = player.bulletList[j];
             graphics.bullet(cur_bullet.x-me.x,cur_bullet.y-me.y);
@@ -39,6 +40,13 @@ function draw(data){
     }
     //Draw ground
     graphics.rect(0,-me.y-canvas.height/2,canvas.width,canvas.height,'white','grey')
+    //HUD
+    graphics.string(-15,-canvas.height/2+45,'white','Health:')
+    graphics.rect(0,-canvas.height/2+30,200*player.health/maxhealth,10,'white','red')
+    graphics.string(canvas.width/4+-15,-canvas.height/2+45,'white','Fuel:')
+    graphics.rect(canvas.width/4,-canvas.height/2+30,200*player.jetpackfuel/maxJetFuel,10,'white','blue')
+    graphics.string(-canvas.width/4+-15,-canvas.height/2+45,'white','Stamina:')
+    graphics.rect(-canvas.width/4,-canvas.height/2+30,200,10,'white','green')
 }
 
 function Graphics(ctx,cvs){

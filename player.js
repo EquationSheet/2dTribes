@@ -4,7 +4,7 @@ exports.Player=function(identifier,socket,name){
     //Administrvia
     this.cooldown = 0;
     this.identifier = identifier;
-    this.socket=socket;
+    this.socket=socket; //Sprocket? Spoonrocket?
     this.command={
         keyboard:{
             'w':false,
@@ -33,6 +33,7 @@ exports.Player=function(identifier,socket,name){
 
     //Gameplay
     this.health=constants.startHealth;
+    this.jetpackfuel=constants.startJetpackFuel;
     this.bulletList = [];
 
     //Util
@@ -43,7 +44,8 @@ exports.Player=function(identifier,socket,name){
             health:this.health,
             name:this.name,
             identifier:this.identifier,
-            bulletList:this.bulletList
+            bulletList:this.bulletList,
+            jetpackfuel:this.jetpackfuel,
         }
     }
 

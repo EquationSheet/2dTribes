@@ -73,8 +73,6 @@ function login(){
     });
 }
 
-window.onunload=function(){
-    if (sessionKey!=undefined){
-        socket.emit('logout',{sessionKey:sessionKey});
-    }
+window.onbeforeunload=function(){
+    socket.emit('logout',{sessionKey:sessionKey});
 }

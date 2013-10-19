@@ -16,7 +16,10 @@ exports.Game=function(players){
 
             //Apply Commands
             if (command.keyboard['w']){
-                player.ay+=constants.player_acceleration;
+                if (player.jetpackfuel>0){
+                    player.ay+=constants.player_acceleration;
+                    player.jetpackfuel-=constants.jetpackBurnRate;
+                }
             }
             if (command.keyboard['a']){
                 player.ax-=constants.player_acceleration;
@@ -32,11 +35,14 @@ exports.Game=function(players){
             }
             if (player.y-constants.player_height/2<=constants.ground_height){
                 //Hit the ground
+                if (player.jetpackfuel<constants.startJetpackFuel){
+                    player.jetpackfuel+=constants.jetpackRechargeRate;
+                }
                 if (player.vy<0){
                     player.vy=0;
                 }
-                if (player.y<0){
-                    player.y=0;
+                if (player.y-constants.player_height/2<0){
+                    player.y=constants.player_height/2;
                 }
                 //Apply Friction
                 if (command.keyboard[' ']){
@@ -80,6 +86,8 @@ exports.Game=function(players){
                         player2.vx=temp;
                     }
                 }
+
+                //Detect bullet collision
             }
         }
         for (sessionKey in this.players){

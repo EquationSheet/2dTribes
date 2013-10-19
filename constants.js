@@ -3,6 +3,9 @@ exports.constants={
     spawnX:0,
     spawnY:100,
     startHealth:1000,
+    startJetpackFuel:4000,
+    jetpackBurnRate:50,
+    jetpackRechargeRate:25,
     heartbeat_period:30,
     player_acceleration:.3,
     gravity_acceleration:.2,
@@ -11,6 +14,6 @@ exports.constants={
     ground_height:0,
     player_height:16,
     player_width:6,
-    BUL_VEL:5,
+    BUL_VEL:10,
     bul_cooldown:10
 }
