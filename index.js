@@ -25,9 +25,9 @@ async.series([
             var server = http.createServer(requestHandler).listen(constants.port,function(){console.log("http started.");next();});
             allSockets=io.listen(server,{'log':false}).on('connection',function(socket){
                 socket.on('login',function(data){
-                    console.log("Creating player "+players[key]);
                     key=genSessionKey();
                     players[key] = new Player(genIdentifier(),socket,data.name);
+                    console.log("Creating player "+players[key]);
                     socket.emit('sessionKey',{sessionKey:key});
                 });
                 socket.on('logout',function(data){
@@ -42,11 +42,11 @@ async.series([
         function startHeartbeat(next){
             setInterval(function(){
                 playerList=[];
-                for (sessionKey in players){playerList.push(players[sessionKey]);}
+                for (sessionKey in players){playerList.push(players[sessionKey].digest());}
                 for (sessionKey in players){
                     player = players[sessionKey];
                     player.socket.emit('heartbeat',{
-                        you:players[sessionKey],
+                        you:players[sessionKey].digest(),
                         list:playerList,
                     });
                 }
@@ -64,7 +64,9 @@ async.series([
 function genSessionKey(){
     var key = Math.floor(Math.random()*500000923).toString(16);
     if (key in players){
+        return genSessionKey();
     }
+    return key;
 }
 function genIdentifier(){
     if (this.count==undefined){

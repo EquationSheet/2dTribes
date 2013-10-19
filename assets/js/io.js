@@ -53,3 +53,8 @@ function isCommand(keystroke){
     command_str = "wasd ";
     return command_str.indexOf(keystroke) != -1;
 }
+function login(){
+    username=$("#uname_input").val();
+    socket.emit('login',{name:username});
+    $("#uname_modal").modal('hide');
+}
