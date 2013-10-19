@@ -57,7 +57,7 @@ exports.Game=function(players){
 
                 //Apply Friction
                 player.ax-=constants.air_coef_of_friction*player.vx
-                player.ay-=constants.air_coef_of_friction*player.vy
+                    player.ay-=constants.air_coef_of_friction*player.vy
             }
         }
         //Collision detection
@@ -72,11 +72,37 @@ exports.Game=function(players){
                 //console.log("Player 1 vx:"+player1.vx);
                 //console.log("Player 2 vx:"+player2.vx);
                 //console.log("Player 1 vy:"+player1.vy);
-               // //console.log("Player 2 vy:"+player2.vy);
+                // //console.log("Player 2 vy:"+player2.vy);
 
                 if (detectCollision1d(player1.x,player1.vx,constants.player_width,player2.x,player2.vx,constants.player_width) && detectCollision1d(player1.y,player1.vy,constants.player_height,player2.y,player2.vy,constants.player_height)){
                     //There is a collision. Find out if it is lateral or vertical.
                     //console.log('I detected a collision');
+                    var collisiondamage=constants.collision_coef*Math.abs(player1.vx-player2.vx);
+                    if (Math.abs(player1.vx)>Math.abs(player2.vx)){
+                        player2.health-=collisiondamage;
+                        //Dying logic
+                        if (player2.health<0){
+                            console.log(player2.name+" died.");
+                            player2.x=0;
+                            player2.y=100;
+                            player2.health=1000;
+                            player2.jetpackfuel=4000;
+                            player1.score+=1;
+                        }
+
+                    }else{
+                        player1.health-=collisiondamage;
+                        //Dying logic
+                        if (player1.health<0){
+                            console.log(player1.name+" died.");
+                            player1.x=0;
+                            player1.y=100;
+                            player1.health=1000;
+                            player1.jetpackfuel=4000;
+                            player2.score+=1;
+                        }
+
+                    }
                     if (Math.abs(player1.y-player2.y)>=constants.player_height){
                         var temp=player1.vy;
                         player1.vy=player2.vy;
@@ -92,22 +118,22 @@ exports.Game=function(players){
                 for (var i = 0; i < player1.bulletList.length; i++){
                     bullet = player1.bulletList[i];
                     if (((bullet.x <= player2.x+constants.player_width/2 && bullet.x+bullet.vx>=player2.x-constants.player_width/2)
-                        || (bullet.x >= player2.x-constants.player_width/2 && bullet.x+bullet.vx<=player2.x+constants.player_width/2))
-                        && ((bullet.y <= player2.y+constants.player_width/2 && bullet.y+bullet.vy>=player2.y-constants.player_width/2)
-                        || (bullet.y >= player2.y-constants.player_width/2 && bullet.y+bullet.vy<=player2.y+constants.player_width/2))){
-                            player1.bulletList.splice(i,1);
-                            i--;
-                            player2.health-=constants.bullet_damage;
-                            //Dying logic
-                            if (player2.health<0){
-                                console.log(player2.name+" died.");
-                                player2.x=0;
-                                player2.y=100;
-                                player2.health=1000;
-                                player2.jetpackfuel=4000;
-                                player1.score+=1;
-                            }
-                    }
+                                || (bullet.x >= player2.x-constants.player_width/2 && bullet.x+bullet.vx<=player2.x+constants.player_width/2))
+                            && ((bullet.y <= player2.y+constants.player_width/2 && bullet.y+bullet.vy>=player2.y-constants.player_width/2)
+                                || (bullet.y >= player2.y-constants.player_width/2 && bullet.y+bullet.vy<=player2.y+constants.player_width/2))){
+                                    player1.bulletList.splice(i,1);
+                                    i--;
+                                    player2.health-=constants.bullet_damage;
+                                    //Dying logic
+                                    if (player2.health<0){
+                                        console.log(player2.name+" died.");
+                                        player2.x=0;
+                                        player2.y=100;
+                                        player2.health=1000;
+                                        player2.jetpackfuel=4000;
+                                        player1.score+=1;
+                                    }
+                                }
                 }
             }
         }

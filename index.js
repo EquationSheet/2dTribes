@@ -39,7 +39,9 @@ async.series([
                     }
                 });
                 socket.on('command',function(data){
-                    players[data.sessionKey].command=data.command;
+                    if (data != undefined && players[data.sessionKey] != undefined){
+                        players[data.sessionKey].command=data.command;
+                    }
                 });
             });
         },

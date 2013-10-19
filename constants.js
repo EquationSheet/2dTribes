@@ -17,4 +17,5 @@ exports.constants={
     BUL_VEL:20,
     bul_cooldown:10,
     bullet_damage:150,
+    collision_coef:5,
 }
