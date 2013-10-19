@@ -5,3 +5,5 @@ var player_width=6;
 var maxhealth=1000;
 var maxJetFuel=4000;
 var bul_cooldown=10;
+var scalingfactor=2.5;
+var starcount=200;
