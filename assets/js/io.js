@@ -62,8 +62,6 @@ function login(){
     $("#canvas").mousemove(function(e){           
         command.mouse.x = e.clientX-this.offsetLeft-Math.floor($("#"+CANVAS_ID).width()/2);
         command.mouse.y = -(e.clientY - this.offsetTop-Math.floor($("#"+CANVAS_ID).height()/2));
-        console.log("x: " + command.mouse.x);
-        console.log("y: " + command.mouse.y);
     });
 
     $("#"+CANVAS_ID).mouseup(function(e){
@@ -72,7 +70,6 @@ function login(){
 
     $("#"+CANVAS_ID).mousedown(function(e){
         command.mouse.click=true;
-        console.log("clicked")
     });
 }
 

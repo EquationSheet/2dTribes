@@ -1,5 +1,5 @@
-constants=require('./constants.js').constants;
-bullet=require('./bullet.js').bullet;
+var constants=require('./constants.js').constants;
+var Bullet=require('./bullet.js').Bullet;
 exports.Player=function(identifier,socket,name){
     //Administrvia
     this.identifier = identifier;
@@ -47,13 +47,13 @@ exports.Player=function(identifier,socket,name){
     }
 
     this.spawnBullet=function(mouseX,mouseY,playX,playY,playVx,playVy){
-       var bullet = new Bullet(playX,playY,constants.BUL_VEL*mouseX/Math.sqrt(x*x+y*y) + playVx,constants.BUL_VEL*mouseY/Math.sqrt(x*x+y*y) + playVy)
+       var bullet = new Bullet(playX,playY,constants.BUL_VEL*mouseX/Math.sqrt(mouseX*mouseX+mouseY*mouseY) + playVx,constants.BUL_VEL*mouseY/Math.sqrt(mouseX*mouseX+mouseY*mouseY) + playVy);
        if (this.bulletList.length >= 20) {
-           bulletList.splice(0,1);
-           bulletList.push(bullet);
+           this.bulletList.splice(0,1);
+           this.bulletList.push(bullet);
         }
         else {
-            bulletList.push(bullet);
+            this.bulletList.push(bullet);
         }
     }
 }
