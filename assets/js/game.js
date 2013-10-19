@@ -1,9 +1,6 @@
-var Raphael=require('./raphael.js').Raphael;
-var Player = require('./player.js').Player;
-var constants=require('./constants.js').constants;
+var World = new World();
 
-function World(sessions) {
-    this.sessions = sessions;
+function World() {
 
     this.getXYCoord=function(context) {
         return context['you'];
@@ -21,7 +18,7 @@ function World(sessions) {
         var currCoord = this.getXYCoord(context);
         var players = this.getPlayers(context);
         var selfID = this.IDKey(context);
-        for player in players {
+        for (var player in players) {
             if (player.identifier == selfID) {
                 players.remove(player);           
             }
@@ -36,11 +33,11 @@ function World(sessions) {
         return players
     }
 
-    this.draw(context) {
+    this.draw=function(context) {
         playersToDraw = this.getRelativeCoordinateFilter(context);
         var canvas = Raphael(screen.width/2,screen.height/2,screen.width,screen.height)
 
-        for player in playersToDraw {
+        for (var player in playersToDraw) {
             var circle = canvas.circle(player.x,player.y,20);
             circle.attr("fill",'#f00');
             circle.attr("stroke","#fff");
