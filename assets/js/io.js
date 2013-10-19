@@ -2,6 +2,7 @@ var socket = io.connect('http://localhost');
 
 var sessionKey="";
 var username="";
+var raphael;
 var command={
     keyboard:{
         "w":false,
@@ -19,7 +20,7 @@ var command={
 
 $( document ).ready(function(){
     $("#uname_modal").modal({
-        backdrop:'static'
+        //backdrop:'static'
     });
 });
 
@@ -64,11 +65,12 @@ socket.on("heartbeat",function(data){
         'command':command,
         'sessionKey':sessionKey
     });
-    world.draw(data);
+    draw(data,raphael);
 });
 
 function login(){
     username=$("#uname_input").val();
     socket.emit('login',{name:username});
     $("#uname_modal").modal('hide');
+    raphael = Raphael("canvas",'100%','100%');//
 }
