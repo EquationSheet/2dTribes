@@ -1,6 +1,5 @@
 var socket = io.connect('http://localhost');
 
-
 var sessionKey="";
 var username="";
 var command={
@@ -65,6 +64,7 @@ socket.on("heartbeat",function(data){
         'command':command,
         'sessionKey':sessionKey
     });
+    draw(data);
 });
 
 function login(){
