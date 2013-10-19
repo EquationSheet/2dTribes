@@ -1,4 +1,4 @@
-var raphael=require('./raphael.js').raphael;
+var Raphael=require('./raphael.js').Raphael;
 var Player = require('./player.js').Player;
 var constants=require('./constants.js').constants;
 
@@ -25,7 +25,7 @@ function World(sessions) {
             if (player.identifier == selfID) {
                 players.remove(player);           
             }
-            else if (Math.abs(player.x-currCoord.x) > canvas.width/2 || Math.abs(player.y-currCoord.y) > canvas.height/2) {
+            else if (Math.abs(player.x-currCoord.x) > screen.width/2 || Math.abs(player.y-currCoord.y) > screen.height/2) {
                 players.remove(player)
             }
             else {
@@ -36,11 +36,16 @@ function World(sessions) {
         return players
     }
 
-    this.draw = function(context) {
+    this.draw(context) {
+        playersToDraw = this.getRelativeCoordinateFilter(context);
+        var canvas = Raphael(screen.width/2,screen.height/2,screen.width,screen.height)
 
+        for player in playersToDraw {
+            var circle = canvas.circle(player.x,player.y,20);
+            circle.attr("fill",'#f00');
+            circle.attr("stroke","#fff");
+        }
     }
-
-
 }
 
 
