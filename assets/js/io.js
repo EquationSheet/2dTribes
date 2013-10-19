@@ -64,7 +64,7 @@ socket.on("heartbeat",function(data){
         'command':command,
         'sessionKey':sessionKey
     });
-    draw(data);
+    world.draw(data);
 });
 
 function login(){
