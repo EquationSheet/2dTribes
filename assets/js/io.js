@@ -24,19 +24,6 @@ $( document ).ready(function(){
     });
 });
 
-$("#"+CANVAS_ID).mousemove(function(e){           
-    command.mouse.x = e.clientX-this.offsetLeft-Math.floor($("#"+CANVAS_ID).width()/2);
-    command.mouse.y = -(e.clientY - this.offsetTop-Math.floor($("#"+CANVAS_ID).height()/2));
-});
-
-$("#"+CANVAS_ID).mouseup(function(e){
-    command.mouse.click=false;
-});
-
-$("#"+CANVAS_ID).mousedown(function(e){
-    command.mouse.click=true;
-});
-
 $( document ).keydown(function(e){
     var key = String.fromCharCode(e.which).toLowerCase() 
     if(isCommand(key)){
@@ -72,6 +59,21 @@ function login(){
     username=$("#uname_input").val();
     socket.emit('login',{name:username});
     $("#uname_modal").modal('hide');
+    $("#canvas").mousemove(function(e){           
+        command.mouse.x = e.clientX-this.offsetLeft-Math.floor($("#"+CANVAS_ID).width()/2);
+        command.mouse.y = -(e.clientY - this.offsetTop-Math.floor($("#"+CANVAS_ID).height()/2));
+        console.log("x: " + command.mouse.x);
+        console.log("y: " + command.mouse.y);
+    });
+
+    $("#"+CANVAS_ID).mouseup(function(e){
+        command.mouse.click=false;
+    });
+
+    $("#"+CANVAS_ID).mousedown(function(e){
+        command.mouse.click=true;
+        console.log("clicked")
+    });
 }
 
 window.onunload=function(){
