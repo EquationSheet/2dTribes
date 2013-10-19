@@ -12,6 +12,7 @@ var allSockets;
 var game;
 var players={};
 var identifiers={}
+var count={count:-1}
 
 async.series([
         function printStarting(next){
@@ -27,7 +28,7 @@ async.series([
             allSockets=io.listen(server,{'log':false}).on('connection',function(socket){
                 socket.on('login',function(data){
                     key=genSessionKey();
-                    players[key] = new Player(genIdentifier(),socket,data.name);
+                    players[key] = new Player(genIdentifier(),socket,data.name,key);
                     console.log("Creating player "+players[key]);
                     socket.emit('sessionKey',{sessionKey:key});
                 });
@@ -76,8 +77,7 @@ function genSessionKey(){
     }
     return key;
 }
-var count=-1
 function genIdentifier(){
-    count+=1;
-    return count;
+    count.count+=1;
+    return count.count;
 }

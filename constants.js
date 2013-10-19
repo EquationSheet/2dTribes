@@ -15,5 +15,6 @@ exports.constants={
     player_height:16,
     player_width:6,
     BUL_VEL:10,
-    bul_cooldown:10
+    bul_cooldown:10,
+    bullet_damage:50,
 }

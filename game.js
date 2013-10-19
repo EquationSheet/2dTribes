@@ -1,4 +1,5 @@
 var constants = require('./constants').constants;
+var Player = require('./player.js').Player;
 exports.Game=function(players){
     this.players=players;
     this.step=function(){
@@ -88,6 +89,25 @@ exports.Game=function(players){
                 }
 
                 //Detect bullet collision
+                for (var i = 0; i < player1.bulletList.length; i++){
+                    bullet = player1.bulletList[i];
+                    if (((bullet.x <= player2.x+constants.player_width/2 && bullet.x+bullet.vx>=player2.x-constants.player_width/2)
+                        || (bullet.x >= player2.x-constants.player_width/2 && bullet.x+bullet.vx<=player2.x+constants.player_width/2))
+                        && ((bullet.y <= player2.y+constants.player_width/2 && bullet.y+bullet.vy>=player2.y-constants.player_width/2)
+                        || (bullet.y >= player2.y-constants.player_width/2 && bullet.y+bullet.vy<=player2.y+constants.player_width/2))){
+                            player1.bulletList.splice(i,1);
+                            i--;
+                            player2.health-=constants.bullet_damage;
+                            //Dying logic
+                            if (player2.health<0){
+                                console.log(player2.name+" died.");
+                                player2.x=0;
+                                player2.y=100;
+                                player2.health=1000;
+                                player2.jetpackfuel=4000;
+                            }
+                    }
+                }
             }
         }
         for (sessionKey in this.players){
