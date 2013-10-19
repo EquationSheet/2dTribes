@@ -31,8 +31,9 @@ async.series([
                     socket.emit('sessionKey',{sessionKey:key});
                 });
                 socket.on('logout',function(data){
-                    console.log("Deleting player "+players[key]);
-                    delete(players[data.sessionKey]);
+                    if (data.sessionKey!=undefined){
+                        delete(players[data.sessionKey]);
+                    }
                 });
                 socket.on('command',function(data){
                     players[data.sessionKey].command=data.command;

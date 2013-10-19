@@ -27,8 +27,8 @@ exports.Game=function(players){
                 if (player.vy<0){
                     player.vy=0;
                 }
-                if (player.y<0){
-                    player.y=0;
+                if (player.y-constants.player_height/2<0){
+                    player.y=constants.player_height/2;
                 }
                 //Apply Friction
                 if (command.keyboard[' ']){
