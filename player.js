@@ -33,6 +33,7 @@ exports.Player=function(identifier,socket,name,sessionKey){
     this.ay=0;
 
     //Gameplay
+    this.score=0;
     this.health=constants.startHealth;
     this.jetpackfuel=constants.startJetpackFuel;
     this.bulletList = [];
@@ -47,6 +48,8 @@ exports.Player=function(identifier,socket,name,sessionKey){
             identifier:this.identifier,
             bulletList:this.bulletList,
             jetpackfuel:this.jetpackfuel,
+            cooldown:this.cooldown,
+            score:this.score,
         }
     }
 
