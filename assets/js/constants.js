@@ -1,1 +1,1 @@
-var CANVAS_NAME = "canvas";
+var CANVAS_ID = "canvas";

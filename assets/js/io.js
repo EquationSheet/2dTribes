@@ -1,4 +1,6 @@
-var socket = require("socket");
+var socket = io.connect('http://localhost');
+
+
 var sessionKey="";
 var username="";
 var command={
@@ -15,6 +17,10 @@ var command={
         y:0,
     },
 };
+
+$( document ).ready(function(){
+    $("#uname_modal").modal();
+});
 
 $("#"+CANVAS_ID).mousemove(function(e){           
     command.mouse.x = e.clientX-this.offsetLeft-Math.floor($("#"+CANVAS_ID).width()/2);
@@ -44,6 +50,6 @@ $( document ).keyup(function(e){
 });
 
 function isCommand(keystroke){
-    command_str = "wasd "
-    return command_str.indexOf(keystroke) != -1
-}}
+    command_str = "wasd ";
+    return command_str.indexOf(keystroke) != -1;
+}
