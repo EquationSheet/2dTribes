@@ -34,7 +34,7 @@ function draw(data){
         console.log(player.bulletList);
         for(var j = 0; j < player.bulletList.length; j++){
             var cur_bullet = player.bulletList[j];
-            graphics.bullet(cur_bullet.x,cur_bullet.y);
+            graphics.bullet(cur_bullet.x-me.x,cur_bullet.y-me.y);
         }
     }
     //Draw ground
@@ -89,7 +89,7 @@ function Graphics(ctx,cvs){
 		this.ctx.strokeText(s,this.cvs.width/2+x,this.cvs.height/2-y);
 	}
     this.bullet=function(x,y){
-        var color = 'rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+','+255.0+')';
+        var color = 'rgba('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+1.0+')';
         this.circle(x,y,0,BULLET_RADIUS,color,color);
     }
 }
