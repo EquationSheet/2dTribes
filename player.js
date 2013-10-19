@@ -43,5 +43,3 @@ exports.Player=function(identifier,socket,name){
         }
     }
 }
-
-

@@ -74,6 +74,8 @@ function login(){
     $("#uname_modal").modal('hide');
 }
 
-document.onunload=function(){
-    socket.emit('logout',{sessionKey:sessionKey});
+window.onunload=function(){
+    if (sessionKey!=undefined){
+        socket.emit('logout',{sessionKey:sessionKey});
+    }
 }
