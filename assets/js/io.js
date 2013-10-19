@@ -66,3 +66,9 @@ socket.on("heartbeat",function(data){
         'sessionKey':sessionKey
     });
 });
+
+function login(){
+    username=$("#uname_input").val();
+    socket.emit('login',{name:username});
+    $("#uname_modal").modal('hide');
+}

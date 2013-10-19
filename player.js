@@ -31,6 +31,17 @@ exports.Player=function(identifier,socket,name){
 
     //Gameplay
     this.health=constants.startHealth;
+
+    //Util
+    this.digest=function(){
+        return {
+            x:this.x,
+            y:this.y,
+            health:this.health,
+            name:this.name,
+            identifier:this.identifier,
+        }
+    }
 }
 
 
