@@ -41,6 +41,9 @@ async.series([
         },
         function startHeartbeat(next){
             setInterval(function(){
+                for (sessionKey in players){
+                    console.log(players[sessionKey].name+" "+players[sessionKey].identifier+" "+": ("+players[sessionKey].x+","+players[sessionKey].y+")")
+                }
                 playerList=[];
                 for (sessionKey in players){playerList.push(players[sessionKey].digest());}
                 for (sessionKey in players){
@@ -68,11 +71,8 @@ function genSessionKey(){
     }
     return key;
 }
+var count=-1
 function genIdentifier(){
-    if (this.count==undefined){
-        this.counter=0;
-        return 0;
-    }
-    this.counter+=1;
-    return this.counter;
+    count+=1;
+    return count;
 }

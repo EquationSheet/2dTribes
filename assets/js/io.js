@@ -65,12 +65,15 @@ socket.on("heartbeat",function(data){
         'command':command,
         'sessionKey':sessionKey
     });
-    draw(data,raphael);
+    draw(data);
 });
 
 function login(){
     username=$("#uname_input").val();
     socket.emit('login',{name:username});
     $("#uname_modal").modal('hide');
-    raphael = Raphael("canvas",'100%','100%');//
+}
+
+document.onunload=function(){
+    socket.emit('logout',{sessionKey:sessionKey});
 }
