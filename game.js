@@ -21,14 +21,16 @@ exports.Game=function(players){
             if (command.keyboard['d']){
                 player.ax+=constants.player_acceleration;
             }
-
+            if (command.mouse.click) {
+                player.spawnBullet(command.mouse.x,command.mouse.y,player.x,player.y,player.vx,player.vy);
+            }
             if (player.y-constants.player_height/2<=constants.ground_height){
                 //Hit the ground
                 if (player.vy<0){
                     player.vy=0;
                 }
-                if (player.y-constants.player_height/2<0){
-                    player.y=constants.player_height/2;
+                if (player.y<0){
+                    player.y=0;
                 }
                 //Apply Friction
                 if (command.keyboard[' ']){

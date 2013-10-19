@@ -45,17 +45,6 @@ exports.Player=function(identifier,socket,name){
             bulletList:this.bulletList
         }
     }
-
-    this.spawnBullet=function(mouseX,mouseY,playX,playY,playVx,playVy){
-       var bullet = new Bullet(playX,playY,constants.BUL_VEL*mouseX/Math.sqrt(x*x+y*y) + playVx,constants.BUL_VEL*mouseY/Math.sqrt(x*x+y*y) + playVy)
-       if (this.bulletList.length >= 20) {
-           bulletList.splice(0,1);
-           bulletList.push(bullet);
-        }
-        else {
-            bulletList.push(bullet);
-        }
-    }
 }
 exports.Bullet=function(socket,player) {
     this.socket = socket;

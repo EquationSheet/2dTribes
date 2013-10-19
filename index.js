@@ -4,6 +4,7 @@ var http = require('http');
 var constants = require('./constants.js').constants;
 var requestHandler = require('./serveFiles.js').requestHandler;
 var Player = require('./player.js').Player;
+var Bullet = require('./bullet.js').Bullet;
 var Game = require('./game.js').Game;
 
 
@@ -46,12 +47,13 @@ async.series([
                     console.log(players[sessionKey].name+" "+players[sessionKey].identifier+" "+": ("+players[sessionKey].x+","+players[sessionKey].y+")")
                 }
                 playerList=[];
-                for (sessionKey in players){playerList.push(players[sessionKey].digest());}
                 for (sessionKey in players){
+                    playerList.push(players[sessionKey].digest());
+                }
                     player = players[sessionKey];
                     player.socket.emit('heartbeat',{
-                        you:players[sessionKey].digest(),
-                        list:playerList,
+                    you:players[sessionKey].digest(),
+                    list:playerList, 
                     });
                 }
                 game.step();

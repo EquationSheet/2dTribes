@@ -11,4 +11,6 @@ exports.constants={
     ground_height:0,
     player_height:16,
     player_width:6,
+    BUL_VEL:5,
+    bul_cooldown:10
 }
