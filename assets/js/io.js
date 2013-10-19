@@ -1,6 +1,5 @@
 var socket = io.connect('http://localhost');
 
-
 var sessionKey="";
 var username="";
 var command={
@@ -19,7 +18,9 @@ var command={
 };
 
 $( document ).ready(function(){
-    $("#uname_modal").modal();
+    $("#uname_modal").modal({
+        backdrop:'static'
+    });
 });
 
 $("#"+CANVAS_ID).mousemove(function(e){           
@@ -52,4 +53,22 @@ $( document ).keyup(function(e){
 function isCommand(keystroke){
     command_str = "wasd ";
     return command_str.indexOf(keystroke) != -1;
+}
+
+socket.on("sessionKey",function(data){
+    sessionKey = data.sessionKey;
+});
+
+socket.on("heartbeat",function(data){
+    socket.emit('command',{
+        'command':command,
+        'sessionKey':sessionKey
+    });
+    draw(data);
+});
+
+function login(){
+    username=$("#uname_input").val();
+    socket.emit('login',{name:username});
+    $("#uname_modal").modal('hide');
 }

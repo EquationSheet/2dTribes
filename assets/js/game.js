@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 var World = new World();
+=======
+//var Raphael=require('./raphael.js').Raphael;
+//var Player = require('./player.js').Player;
+//var constants=require('./constants.js').constants;
+>>>>>>> 47c0a3f03f9fe81b3bb818711819e16ab8905781
 
 function World() {
 
@@ -18,7 +24,11 @@ function World() {
         var currCoord = this.getXYCoord(context);
         var players = this.getPlayers(context);
         var selfID = this.IDKey(context);
+<<<<<<< HEAD
         for (var player in players) {
+=======
+        for (player in players) {
+>>>>>>> 47c0a3f03f9fe81b3bb818711819e16ab8905781
             if (player.identifier == selfID) {
                 players.remove(player);           
             }
@@ -37,7 +47,11 @@ function World() {
         playersToDraw = this.getRelativeCoordinateFilter(context);
         var canvas = Raphael(screen.width/2,screen.height/2,screen.width,screen.height)
 
+<<<<<<< HEAD
         for (var player in playersToDraw) {
+=======
+        for (player in playersToDraw) {
+>>>>>>> 47c0a3f03f9fe81b3bb818711819e16ab8905781
             var circle = canvas.circle(player.x,player.y,20);
             circle.attr("fill",'#f00');
             circle.attr("stroke","#fff");
